@@ -22,8 +22,8 @@ for column in ['Direction_of_travel', 'Region_id', 'Local_authority_id', 'Road_c
     data[column] = label_encoder.fit_transform(data[column])
 
 # Extract features and target variable
-X = data.drop(['All_motor_vehicles'], axis=1)  # Features (excluding the target variable)
-y = data['All_motor_vehicles']  # Target variable
+X = data.drop(['All_motor_vehicles'], axis=1) 
+y = data['All_motor_vehicles']
 
 # Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -58,27 +58,26 @@ y_pred_anova = model_anova.predict(X_test_selected_anova)
 # Calculate RMSE and R2 for correlation-based features
 rmse_corr = np.sqrt(mean_squared_error(y_test, y_pred_corr))
 r2_corr = r2_score(y_test, y_pred_corr)
-accuracy_corr = r2_corr * 100  # Convert R-squared to percentage
+accuracy_corr = r2_corr * 100  
 
 # Calculate RMSE and R2 for ANOVA-based features
 rmse_anova = np.sqrt(mean_squared_error(y_test, y_pred_anova))
 r2_anova = r2_score(y_test, y_pred_anova)
-accuracy_anova = r2_anova * 100  # Convert R-squared to percentage
+accuracy_anova = r2_anova * 100  
 
 # Display results for correlation-based features
 print("Results for Correlation-based Feature Selection with XGBoost:")
 print(f"Selected Features: {selected_columns_corr}")
 print(f"Root Mean Squared Error (RMSE): {rmse_corr}")
 print(f"R-squared (R2): {r2_corr}")
-print(f"Accuracy: {accuracy_corr:.2f}%")  # Display accuracy in percentage
+print(f"Accuracy: {accuracy_corr:.2f}%") 
 
 # Display results for ANOVA-based features
 print("\nResults for ANOVA-based Feature Selection with XGBoost:")
 print(f"Selected Features: {selected_columns_anova}")
 print(f"Root Mean Squared Error (RMSE): {rmse_anova}")
 print(f"R-squared (R2): {r2_anova}")
-print(f"Accuracy: {accuracy_anova:.2f}%")  # Display accuracy in percentage
-
+print(f"Accuracy: {accuracy_anova:.2f}%")  
 # Heatmap of the selected features for the correlation matrix
 plt.figure(figsize=(12, 10))
 sns.heatmap(correlation_matrix.loc[selected_columns_corr, selected_columns_corr], annot=True, cmap="coolwarm", fmt=".2f")
@@ -92,7 +91,7 @@ plt.title("Correlation Matrix of Selected Features (ANOVA-based)")
 plt.show()
 
 # Scatter plot comparing predicted vs actual values with lines for correlation-based features
-step = 1000  # Set the step variable
+step = 1000  
 n_corr = len(y_test) - len(y_test) % step
 plt.figure(figsize=(12, 8))
 plt.plot(np.linspace(0, 100, n_corr//step), y_test[:n_corr:step], color='blue', label='Actual Data', linestyle='-', linewidth=1, alpha=0.5)
