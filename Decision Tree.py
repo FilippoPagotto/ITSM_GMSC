@@ -22,8 +22,8 @@ for column in ['Direction_of_travel', 'Region_id', 'Local_authority_id', 'Road_c
     data[column] = label_encoder.fit_transform(data[column])
 
 # Extract features and target variable
-X = data.drop(['All_motor_vehicles'], axis=1)  # Features (excluding the target variable)
-y = data['All_motor_vehicles']  # Target variable
+X = data.drop(['All_motor_vehicles'], axis=1) 
+y = data['All_motor_vehicles'] 
 
 # Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -42,12 +42,12 @@ X_train_selected_anova = X_train[selected_columns_anova]
 X_test_selected_anova = X_test[selected_columns_anova]
 
 # Create and train the Decision Tree model using correlation-based features
-max_depth_corr = 20  # You can adjust this value
+max_depth_corr = 20 
 model_corr = DecisionTreeRegressor(max_depth=max_depth_corr)
 model_corr.fit(X_train_selected_corr, y_train)
 
 # Create and train the Decision Tree model using ANOVA-based features
-max_depth_anova = 20  # You can adjust this value
+max_depth_anova = 20  
 model_anova = DecisionTreeRegressor(max_depth=max_depth_anova)
 model_anova.fit(X_train_selected_anova, y_train)
 
@@ -90,7 +90,7 @@ plt.title("Correlation Matrix of Selected Features (ANOVA-based)")
 plt.show()
 
 # Scatter plot comparing predicted vs actual values with lines for correlation-based features
-step = 10  # Set the step variable
+step = 10  
 n_corr = len(y_test) - len(y_test) % step
 plt.figure(figsize=(12, 8))
 plt.plot(np.linspace(0, 100, n_corr//step), y_test[:n_corr:step], color='blue', label='Actual Data', linestyle='-', linewidth=1, alpha=0.5)
